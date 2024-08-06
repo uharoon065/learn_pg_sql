@@ -5,5 +5,5 @@ SELECT * FROM products  ORDER BY price DESC LIMIT 4;
 --  now finding the products with highest price to weight ratio.
 -- SELECT * FROM products ORDER BY  price/weight DESC  LIMIT 4;
 --    joining these rows 
-(SELECT *FROM  products ORDER BY price  DESC LIMIT 4 ) UNION (SELECT * FROM products ORDER BY price/weight limit 4);
+(SELECT *FROM  products ORDER BY price  DESC LIMIT 4 ) UNION (SELECT * FROM products ORDER BY price/weight DESC  limit 4);
 --  note that thein both  queris the order in select [list of columns ] must match.
