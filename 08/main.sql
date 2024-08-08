@@ -22,3 +22,14 @@ SELECT * FROM products  ORDER BY price DESC LIMIT 4;
 -- INTERSECT ALL returns all rows that appear in both result sets, including duplicates. 
 -- Each row in the result appears as many times as it appears in the table where it has the fewest occurrences.
 (SELECT * FROM products  ORDER BY price DESC LIMIT 4)    INTERSECT ALL  (SELECT  * FROM  products ORDER BY  price/weight DESC LIMIT 4);
+-- lecture 4
+--  the except keyword
+-- The EXCEPT keyword takes the result set of the left-hand side (first query) and subtracts or removes the rows that are common with the right-hand side (second query). It then returns the rows remaining in the left-hand side result set.
+
+(SELECT * FROM  products ORDER BY  price DESC  LIMIT 4) 
+EXCEPT
+(SELECT * FROM products ORDER BY  price/weight DESC  LIMIT 4);
+--  lecture 5 and 6 exercise 
+(SELECT manufacturer  FROM phones  WHERE  price < 200)
+UNION ALL
+(SELECT  manufacturer FROM phones GROUP BY manufacturer HAVING COUNT(*) > 3);
