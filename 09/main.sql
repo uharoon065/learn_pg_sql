@@ -43,3 +43,26 @@ SELECT city FROM cities  WHERE  country_id= (SELECT country_id FROM countries  W
 --  the source of rows return  you multiple rows .  we have use source of rows in "from and join" clauses because we cantcant just have single "value" in from  clause and also   not a single column.
 --  in where clause we could have both source of value  as we use in lecture 1   select * from products where price > ( select max(price )  from products where department='toys')  and in this example   select id from products  returns you single column with multiple rows 
 --  the most important thing to understand is where you  put these sources.
+--  lecture 3
+--  shape of data you get from sub queries and where you place them.
+--   select  [ column1, subquery1,subquery2,.....]
+--  if you want to place sub  query in  select clause it must return single  row (one row and one column) also know  as scalur query.
+SELECT name,  (SELECT MAX(price) FROM  products ),(SELECT  MIN(price) FROM  products)FROM products;
+SELECT name, (SELECT price FROM products  WHERE  id= 3)  FROM products WHERE  id=3;
+
+/* note that if you  normally use  a agrigate function and non agrigate function  in select clause you will get an error unless that column is in  group by clause.
+ * nthis is wrong
+*   select name, max(price), min(price) from products;
+*/
+
+--  lecture 4 and 5 
+/*
+* instructions
+* Instructions:
+- Write a query that prints the name and price for each phone.
+- Additionally, print out the ratio of the phone's price against the maximum price of all phones.
+- Rename this third column to price_ratio.
+*/
+
+SELECT  name ,price, ROUND (price/ CAST (( SELECT MAX(price) FROM phones ) AS numeric ), 2  )AS price_ratio  FROM phones;
+
