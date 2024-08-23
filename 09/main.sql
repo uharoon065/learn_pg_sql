@@ -45,6 +45,7 @@ SELECT city FROM cities  WHERE  country_id= (SELECT country_id FROM countries  W
 --  the most important thing to understand is where you  put these sources.
 --  lecture 3
 --  shape of data you get from sub queries and where you place them.
+--  data  returned by sub query inside the select clause 
 --   select  [ column1, subquery1,subquery2,.....]
 --  if you want to place sub  query in  select clause it must return single  row (one row and one column) also know  as scalur query.
 SELECT name,  (SELECT MAX(price) FROM  products ),(SELECT  MIN(price) FROM  products)FROM products;
@@ -63,6 +64,51 @@ SELECT name, (SELECT price FROM products  WHERE  id= 3)  FROM products WHERE  id
 - Additionally, print out the ratio of the phone's price against the maximum price of all phones.
 - Rename this third column to price_ratio.
 */
-
+--  solution 
 SELECT  name ,price, ROUND (price/ CAST (( SELECT MAX(price) FROM phones ) AS numeric ), 2  )AS price_ratio  FROM phones;
 
+
+--  lecture 6
+--  data returned by sub queries inside  "from" clause
+--  source of rows.
+--  the data inside from clause can be bit flexable.  The source of data inside the from clause dependts upon the outer query weather it supports it or not.  Generally   in from clause we have some set of rows and columns which we called table. So   if our outter query  supports inner query it will work. look at following example.
+SELECT  MAX(price_weight_ratio) FROM (SELECT name, price/weight AS  price_weight_ratio  FROM  products) AS prices_raios;
+/*
+  here we have  sub  query that returns a multiple rows x columns  which we  have assign an alias which is necessary because the table returned by the sub query must have some name.
+  So the sub query works as long the outter query  supports it.
+  That  means  in our example if the sub query returns only two columns name and price_weiht_ratio  and multiple rows.
+  here if our query  try to select  some columns that does not exists " select weight from (sub_query );" will throws an error, because there is no column  named "weight" inside our returned table .
+  */
+
+  --  lecture 7
+  --  continue  data returned inside  from clause.
+  --  source of value.
+  --  the from  clause can hae  sub query that returns scalor query (one row and one column). That your main query will work as long your writing a outter queyrquery that is compitible with  inner query. Look at the following examples. 
+  --  the example one works because our outter query  is doing something that is posible to do with  single row and column, even it is selecting a all columns , as long is compitable it works.
+  --  look at the example 2 it fails because there is no column  by name  to select from single value niether there is any column  by price  which we can compare.
+  --  example 1
+  SELECT * FROM (SELECT MIN(price) FROM  phones  ) AS my_phones;
+  --  example 2
+  SELECT    name FROM (SELECT MAX(price) FROM phones  ) AS phones WHERE price < 200;
+  --  lecture 8
+  /*
+  The task is to "Find the average number of orders for all users." It mentions that there is more than one way to solve this, but the approach will be using a 'FROM' subquery.
+  formula
+  sum of orders/ number of users
+*/
+-- SELECT SUM(numberOfOrders) FROM  -> 550 total orders
+--  solution 1
+SELECT SUM(numberOfOrders)/COUNT(user_id) AS averageNumberOfOrders  FROM  
+(SELECT  user_id , COUNT(*) AS  numberOfOrders  FROM orders GROUP BY user_id ORDER BY user_id) as  orders;
+--  solution 2
+SELECT avg(numberOfOrders)  AS averageNumberOfOrdersByUsers  FROM  
+(SELECT    COUNT(*) AS  numberOfOrders  FROM orders GROUP BY user_id ORDER BY user_id) as  orders;
+
+--  lecture  9 and 10
+/*
+The The task is to calculate the average price of phones for each manufacturer and then print the highest average price. 
+*/
+-- SELECT manufacturer, COUNT(*) AS  numberOfUnitsSold  FROM phones GROUP BY manufacturer;
+
+-- SELECT manufacturer,  ROUND(AVG(price),2) AS  averagePrice  FROM phones GROUP BY manufacturer;
+SELECT MAX(averagePrice) FROM  (SELECT ROUND(AVG(price),2) AS  averagePrice  FROM phones GROUP BY manufacturer) AS  manufacturersAveragePrices;
