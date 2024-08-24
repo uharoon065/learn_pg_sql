@@ -112,3 +112,17 @@ The The task is to calculate the average price of phones for each manufacturer a
 
 -- SELECT manufacturer,  ROUND(AVG(price),2) AS  averagePrice  FROM phones GROUP BY manufacturer;
 SELECT MAX(averagePrice) FROM  (SELECT ROUND(AVG(price),2) AS  averagePrice  FROM phones GROUP BY manufacturer) AS  manufacturersAveragePrices;
+
+--  lecture 11
+/**
+ in this lecture we will learn about   source of data inside in join clause.
+ the data returned by sub query  in  join clause  depends on the on clause. 
+lets try to understand it by an example.
+lets try to find out the users firstname who has ordered product with id 3
+SELECT   users.id,user_id,  first_name FROM users 
+JOIN 
+(SELECT user_id  FROM orders WHERE product_id=3) AS orders 
+ON  users.id=orders.user_id;
+-- (SELECT * FROM orders WHERE product_id=3)
+ in our sub query  the on  clause just require user_id column so even we  skip  rest of  of colmns  it wont matter.  
+( select  user_id   orders where product_id=3 from )

@@ -280,65 +280,6 @@ INSERT INTO reviews (review, author_id, book_id) VALUES
 ('Kafka''s brilliant story.', 18, 49),
 ('A gripping legal thriller.', 18, 50);
 
-SELECT * FROM  posts WHERE user_id IS NULL;
+-- SELECT * FROM  posts WHERE user_id IS NULL;
 
---  phones table
-CREATE TABLE phones (
-    id SERIAL PRIMARY KEY,
-    name TEXT,
-    manufacturer TEXT,
-    price INT,
-    units INT
-);
-
-INSERT INTO phones (name, manufacturer, price, units) VALUES
-('iPhone 12', 'Apple', 799, 120),
-('iPhone 12 Pro', 'Apple', 999, 85),
-('iPhone 12 Pro Max', 'Apple', 1099, 75),
-('Galaxy S21', 'Samsung', 799, 140),
-('Galaxy S21+', 'Samsung', 999, 90),
-('Galaxy S21 Ultra', 'Samsung', 1199, 60),
-('Pixel 5', 'Google', 699, 100),
-('Pixel 4a', 'Google', 349, 150),
-('Pixel 4a 5G', 'Google', 499, 110),
-('OnePlus 8T', 'OnePlus', 749, 95),
-('OnePlus 9', 'OnePlus', 729, 80),
-('OnePlus 9 Pro', 'OnePlus', 1069, 50),
-('Xperia 1 II', 'Sony', 1199, 40),
-('Xperia 5 II', 'Sony', 949, 55),
-('Xperia 10 II', 'Sony', 399, 70),
-('Mi 11', 'Xiaomi', 749, 130),
-('Mi 10T Pro', 'Xiaomi', 599, 120),
-('Redmi Note 10', 'Xiaomi', 199, 200),
-('Redmi Note 10 Pro', 'Xiaomi', 279, 180),
-('Moto G Power', 'Motorola', 249, 170),
-('Moto G Stylus', 'Motorola', 299, 160),
-('Moto G Fast', 'Motorola', 199, 190),
-('P40 Pro', 'Huawei', 899, 65),
-('Mate 40 Pro', 'Huawei', 1199, 50),
-('Nova 7i', 'Huawei', 349, 130),
-('Find X3 Pro', 'Oppo', 1149, 45),
-('Reno5 Pro', 'Oppo', 599, 90),
-('A54 5G', 'Oppo', 399, 110),
-('Nord N10 5G', 'OnePlus', 299, 150),
-('Nord N100', 'OnePlus', 179, 200),
-('ROG Phone 5', 'Asus', 999, 70),
-('Zenfone 7 Pro', 'Asus', 799, 80),
-('Legion Phone Duel', 'Lenovo', 899, 55),
-('Edge+', 'Motorola', 999, 60),
-('Blade 21', 'ZTE', 199, 190),
-('Axon 20 5G', 'ZTE', 449, 90),
-('Nokia 8.3 5G', 'Nokia', 699, 100),
-('Nokia 5.4', 'Nokia', 249, 160),
-('V60 ThinQ', 'LG', 799, 75),
-('Wing', 'LG', 999, 55),
-('Velvet', 'LG', 599, 100),
-('G8X ThinQ', 'LG', 699, 85),
-('Razr 5G', 'Motorola', 1399, 30),
-('Vivo X50 Pro', 'Vivo', 699, 90),
-('Vivo Y20s', 'Vivo', 179, 200),
-('Realme 7 Pro', 'Realme', 299, 150),
-('Realme 7', 'Realme', 279, 170),
-('K52', 'LG', 199, 180),
-('X50', 'Vivo', 599, 110);
-
+--  
