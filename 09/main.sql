@@ -126,3 +126,13 @@ ON  users.id=orders.user_id;
 -- (SELECT * FROM orders WHERE product_id=3)
  in our sub query  the on  clause just require user_id column so even we  skip  rest of  of colmns  it wont matter.  
 ( select  user_id   orders where product_id=3 from )
+
+--  lecture 12
+/* the use  sub queries inside where clause
+the  source  of data  that can be   returned by sub query inside the where clause depends upon the operator being used.  A sub query can returned a scalor query as well as list of rows (meaning a single column with  multiple rows.)
+example 1
+finding all the  orders  of products where price to weight ratio is  > 250
+SELECT * FROM orders  WHERE  product_id IN 
+( SELECT id FROM   products WHERE  price/weight  > 200);
+in this example  you can see we have used "iIN" operator which requires list so our subquery can return a column.
+*/
