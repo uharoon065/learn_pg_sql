@@ -136,3 +136,33 @@ SELECT * FROM orders  WHERE  product_id IN
 ( SELECT id FROM   products WHERE  price/weight  > 200);
 in this example  you can see we have used "iIN" operator which requires list so our subquery can return a column.
 */
+
+-- lecture 13
+--  table for operators and there coresponding data structure
+/*
+1. On the left side:
+   - Operators: >, <, >=, <=, =, <> or !=, IN, NOT IN
+   - Required structure of data: Single value for the first six operators, and Single column for IN and NOT IN.
+
+2. On the right side:
+   - Operators with ALL/SOME/ANY: > ALL/SOME/ANY, < ALL/SOME/ANY, >= ALL/SOME/ANY, <= ALL/SOME/ANY, = ALL/SOME/ANY, <> ALL/SOME/ANY
+   - Required structure of data: Single column for all these operators.
+
+*/
+
+/*
+continueing our discussion  this lecture is about operators and data structure that they support in where clause.
+The image is a diagram that explains the relationship between SQL operators in the WHERE clause and the structure of data that a subquery must return. It is divided into two main sections:
+
+     lets try to understand  some   uses of operators by an  solving a query.
+     The challenge is to write a SQL query that retrieves the names of all products with a price greater than the average product price from the given database table. The task involves calculating the average price of all products and then selecting only those products whose price exceeds this average.
+     */
+     SELECT name,price  FROM  products 
+ WHERE  price > (SELECT ROUND(AVG(price),2) AS average_price    FROM products  )
+
+--   lecture 14 and 15
+--  exercise
+/* The challenge mentioned in the document is to create a query that outputs the names and prices of phones that have a price greater than the Samsung S5620 Monte. */
+ SELECT name,price FROM phones 
+ WHERE  price > (SELECT price FROM phones WHERE LOWER(name)  ILIKE  '%s21' );
+--  "%" WILDCART matches any sequences of characters before s21.
