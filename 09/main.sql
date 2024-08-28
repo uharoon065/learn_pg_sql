@@ -166,3 +166,43 @@ The image is a diagram that explains the relationship between SQL operators in t
  SELECT name,price FROM phones 
  WHERE  price > (SELECT price FROM phones WHERE LOWER(name)  ILIKE  '%s21' );
 --  "%" WILDCART matches any sequences of characters before s21.
+
+--  lecture 16
+/*
+use of "NOT IN" operator
+task:
+The task is to write an SQL query that retrieves the names of all products that are not in the same department as products with a price less than 100. 
+This means you need to identify departments with products priced under 100 and exclude products from those departments in your result.
+*/
+ -- in sub  query  i have to find  all the  departments first which has products where price of product is < 100.
+-- ( SELECT  department FROM products  WHERE price  < 100) 
+--  now in my outter query  i have to find the names of those products   that are not  present in those list of departments.
+SELECT name  FROM products 
+WHERE  department NOT IN  (SELECT  department FROM products  WHERE price  < 100);
+
+--  lecture 17
+/* 
+IN  thislecture will learn about the "ALL" operator.
+The task is to identify and display the name, department, and price of products that have a higher price than all the products listed under the 'Industrial' department in the database table. 
+The image shows a diagram related to SQL queries, specifically focusing on the use of operators in the WHERE clause. It is divided into three columns:
+1. The first column lists operators used in the WHERE clause with "ALL":
+   - price > ALL
+   - < ALL
+   - >= ALL
+   - <= ALL
+   - = ALL
+   - <> ALL
+2. The second column indicates that the structure of data the subquery must return is a "Single column" for each operator listed in the first column.
+3. The third column lists operators used in the WHERE clause with "SOME":
+   - > SOME
+   - < SOME
+   - >= SOME
+   - <= SOME
+   - = SOME
+   - <> SOME
+*/
+
+--  note that the use  of max funcion is  correct here but for learning purpos we  will use "All" operator
+-- (SELECT  MAX(price) FROM products   WHERE LOWER(department)='industrial')
+SLECT  name,price,department FROM products 
+WHERE  price > ALL  (SELECT   price  FROM products   WHERE LOWER(department)='industrial');
