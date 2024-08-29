@@ -206,3 +206,25 @@ The image shows a diagram related to SQL queries, specifically focusing on the u
 -- (SELECT  MAX(price) FROM products   WHERE LOWER(department)='industrial')
 SLECT  name,price,department FROM products 
 WHERE  price > ALL  (SELECT   price  FROM products   WHERE LOWER(department)='industrial');
+
+--  lecture 17
+/* 
+using SOME OPERATOR or any . 
+note that "ANY" operator is ilias to the some operator.
+hints for using some or any boperators : "at least , one of items, any of products  "
+Both keywords are used to compare a value against a set of values returned by a subquery.
+THE SOME  operator allows you to compare a value  against list of  values where if any value  inside list of values  is > some,< some,or= some  to the compared value it returns true.
+lets try to understand this  by an example.
+instructions:
+There is a text box with the instruction: "Show the name of products that are more expensive than at least one product in the 'Industrial' department."
+*/
+SELECT name, price FROM products
+WHERE price > SOME  (SELECT price FROM products WHERE  LOWER(department) = 'industrial')
+
+--  lecture 19,20
+/*
+The image shows a practice exercise for writing SQL subqueries. The task is to write a query that prints the name of all phones with a price greater than any phone made by Samsung. A table named "phones" is provided for reference, which includes columns for name, manufacturer, price, and units sold. The table contains the following entries:
+*/
+SELECT name,price FROM phones  
+WHERE price >  ANY 
+(SELECT price FROM phones WHERE LOWER(manufacturer) = 'samsung');
