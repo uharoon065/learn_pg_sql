@@ -213,7 +213,7 @@ using SOME OPERATOR or any .
 note that "ANY" operator is ilias to the some operator.
 hints for using some or any boperators : "at least , one of items, any of products  "
 Both keywords are used to compare a value against a set of values returned by a subquery.
-THE SOME  operator allows you to compare a value  against list of  values where if any value  inside list of values  is > some,< some,or= some  to the compared value it returns true.
+THE SOME  operator allows you to compare a value  against list of  values where if any vadlue  inside list of values  is > some,< some,or= some  to the compared value it returns true.
 lets try to understand this  by an example.
 instructions:
 There is a text box with the instruction: "Show the name of products that are more expensive than at least one product in the 'Industrial' department."
@@ -228,3 +228,41 @@ The image shows a practice exercise for writing SQL subqueries. The task is to w
 SELECT name,price FROM phones  
 WHERE price >  ANY 
 (SELECT price FROM phones WHERE LOWER(manufacturer) = 'samsung');
+
+--  lecture 21
+/*
+ in this lecture we will study about the corelated queries.
+lets try to understand this by solving a problem.
+There is a task description that says: "Show the name, department, and price of the most expensive product in each department." Below this, there is a partially visible SQL query starting with "
+SELECT name,price, department From 
+(SELECT department, MAX(price)  FROM products  GROUP BY department)
+look at the above query in our sub query we are catagorizing   departments since we have to find the name price, and department of the most expensive product.
+now we can find the price of most expensive item in each department but the problem arises if you try to select name , price in our outer query since it is going to return only names  of departments and max price of each department item. To solve such proble problems we use corelated queries.
+So corelated query is a  query in which a sub query access the outer row data.
+lets try to understand this wiht smaller data set before moving to larger data set.
+suppose we have to find the name, price , and department  name of the most expensive  item in the industrial department.
+The image shows a database table labeled "products" with columns for id, name, department, price, and weight. The table includes the following entries:
+
+1. Shirt, Industrial, 876, 3
+2. Towels, Outdoors, 412, 16
+3. Bacon, Grocery, 10, 6
+4. Ball, Industrial, 328, 23
+5. Fish, Industrial, 796, 10
+6. Mouse, Grocery, 989, 11
+7. Computer, Outdoors, 298, 2
+SELECT name,price,department FROM products as p1  WHERE price = 
+(SELECT MAX(p2.price) FROM products  as p2 WHERE LOWER(p2.department) = p1.department);
+-- process of corelated query.
+step 1 
+selecting row 1 from table products alias as p1.
+inside the where clause first the sub query is being executed  ( select max(p2.price) from products where p2.department  = p1.department)
+in sub query selecting row 1 from products  table  and inside where clause checking if the its department is  equal to the "industrial" . since row one department is 'industrial' this row is  not drop , continueing this process for row 2 here its department is "outdoor" so droping that one , similarly droping  row 3,6 and 7 keeping only row  1, 4, and 5. Here finding the max price among these 2 rows which is  876 which is returned to outer query where clause .
+now the outer where clause checks if p1.price (876) is   equal to the value  returned by the sub qury   (876) since it is true the outter query keep this row,
+now the outer query is goin to take row 2 from the p1 table  and going to execute the sub query in where clause  here   p2.department for innerrow1 is "industrial' and p1.department is "outdoor"  this inner row is droped moving to row 2 this row is kept since its  department is "outdoor"  this process is repeated for the rest of inner rows keeping only those rows where  department is  'outdoor' after that filtering finding the max price and returning that  to the outer where clause wherr  it checks if the current row's.price is equal to the returned value of the sub query  if yes  keep that outer row otherwise drop that outer row .
+this process is continued  for each outer row   where the where clause only keeps that row where its price value is matched to the returned subquery value.
+So  corelated query is like  a query there is main loop which  takes  each row table outer table and inside the sub query we utilize that row's data , and for that row another  nested loop is executed which allows you to   execute the table .something like this happense here .
+for row in table:
+   for  innerRow in table:
+   ... inner table has access to the outer row.
+*/
+SELECT name,price,department FROM products AS p1  WHERE p1.price = (SELECT  MAX(p2.price) FROM products AS p2  WHERE p2.department = p1.department)
