@@ -182,7 +182,7 @@ WHERE  department NOT IN  (SELECT  department FROM products  WHERE price  < 100)
 
 --  lecture 17
 /* 
-IN  thislecture will learn about the "ALL" operator.
+IN  thislecture will learn about the "ALL operator".
 The task is to identify and display the name, department, and price of products that have a higher price than all the products listed under the 'Industrial' department in the database table. 
 The image shows a diagram related to SQL queries, specifically focusing on the use of operators in the WHERE clause. It is divided into three columns:
 1. The first column lists operators used in the WHERE clause with "ALL":
@@ -266,3 +266,35 @@ for row in table:
    ... inner table has access to the outer row.
 */
 SELECT name,price,department FROM products AS p1  WHERE p1.price = (SELECT  MAX(p2.price) FROM products AS p2  WHERE p2.department = p1.department)
+--  lecture 22 
+-- use of the corelated queries in select clause 
+/*
+Yes, the task mentioned in the image is to print the number of orders for each product without using a join or a group by. This means you need to find an alternative way to count how many times each product appears in the orders table.
+def count_list(arr):
+  numberOfTimes = dict()
+  for row in arr:
+    if row not in numberOfTimes:
+      print(row)
+      for inner_row in arr:
+        if row == inner_row:
+          if not  numberOfTimes.get(row):
+            numberOfTimes[row]= 1
+          else:
+            numberOfTimes[row]= numberOfTimes.get(row) + 1
+  return numberOfTimes
+
+here i have written a python code that demonstrate how   your count function works internly .
+*/
+/*
+SELECT  *FROM   orders  AS o1
+WHERE   o1.product_id  = All 
+(SELECT o2.product_id FROM orders  AS o2 WHERE  o1.product_id = o2.product_id)
+--  approach 2
+
+SELECT   p1.id,p1.name  FROM    products AS p1 
+WHERE  p1.id  = ALL
+(SELECT  COUNT(*) FROM orders  AS o2 WHERE  p1.id = o2.product_id) 
+all the above approachs failed because  my sub query returned a counted row  for that product and i cant use where clause to compare product id with number of times a product appeared.
+in order to fix this we use corelated query in select clause  
+*/
+SELECT p.name , ( SELECT  COUNT(*) FROM orders AS o WHERE o.product_id = p.id ) FROM products AS p;
