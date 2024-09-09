@@ -298,3 +298,19 @@ all the above approachs failed because  my sub query returned a counted row  for
 in order to fix this we use corelated query in select clause  
 */
 SELECT p.name , ( SELECT  COUNT(*) FROM orders AS o WHERE o.product_id = p.id ) FROM products AS p;
+
+--  lecture 23
+/*
+ in this lecture we will study about the  use of   sub query inside the  SELECT WITHOUT FROM  and JOIN CLAUSE .
+ the rule for sub query inside the  select clause remains the same meaning  query should return only single row and column also known as scalor query.
+  */
+  SELECT (SELECT MAX(price) FROM products);
+
+  --  lecture 24,25
+  /*
+  find the max,min, and average price of the phones  using the select sub query.
+  */
+  SELECT
+  (SELECT MAX(price) FROM phones),
+  (SELECT MIN(price) FROM phones),
+  (SELECT AVG(price)FROM phones);
