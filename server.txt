@@ -1,0 +1,2 @@
+Application Server URL: http://127.0.0.1:55521/?key=6d80bb36-f0e0-493f-ab82-2b56da0ddfb5
+Application Server URL: http://127.0.0.1:5050/?key=6d80bb36-f0e0-493f-ab82-2b56da0ddfb5
