@@ -1,0 +1,24 @@
+Table users {
+    id SERIAL  [PRIMARY key,increment]
+    username varchar(40) [ not null]
+    created_at timestamp
+    updated_at timestamp
+}
+
+Table posts {
+        id SERIAL  [PRIMARY key,increment]
+    created_at timestamp
+updated_at timestamp
+title text [not null]
+content text [not null]
+user_id interval [ref: > users.id]
+}
+
+TableTable comments {
+            id SERIAL  [PRIMARY key,increment]
+    created_at timestamp
+updated_at timestamp
+comment text [ not null]
+user_id int [ref:>users.id]
+post_id int [ref:>posts.id]
+}

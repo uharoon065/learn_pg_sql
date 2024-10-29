@@ -96,7 +96,7 @@ INSERT INTO products  (name,department,catagory,price,weight) VALUES ('apple air
 */
 ALTER TABLE products ADD  CHECK(price> 0);
 --  tryingto insert a negative price for a product.
-INSERT INTO  products (name, department,catagory,price,weight) VALUES ('iphone 11','smartphones','phones and tablets',-333,1.5)
+INSERT INTO  products (name, department,catagory,price,weight) VALUES ('iphone 11','smartphones','phones and tablets',-333,1.5)/* in this section we have learnt how to create a
 --  lecture 9
 --  in this lecture we will use composit check constraint.
 */
