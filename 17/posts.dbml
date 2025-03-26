@@ -1,0 +1,31 @@
+Table users {
+    id SERIAL  [PRIMARY key,increment]
+    username varchar(40) [ not null]
+    created_at timestamp
+    updated_at timestamp
+}
+
+Table posts {
+        id SERIAL  [PRIMARY key,increment]
+    created_at timestamp
+updated_at timestamp
+user_id  int [ref: > users.id]
+title  varchar(256)  [not null]
+url text 
+caption text [not null]
+lat real 
+lng real
+}
+
+Table photoTags  {
+    id serial  [primary key,increment]
+    post_id int [ref:> posts.id]
+    user_id int [ref: > users.id]
+    cordinates  text
+}
+
+Table  captionTags  {
+    id serial [primary key,increment]
+    user_id int [ref: > users.id]
+    post_id int [ref: >  posts.id ]
+}
